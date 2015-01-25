@@ -1,0 +1,19 @@
+{
+  "name": "CarsOnlineShop",
+  "version": "0.0.1",
+  "homepage": "https://github.com/vdtodorov93/CarsOnlineShop",
+  "authors": [
+    "Vasil Todorov"
+  ],
+  "description": "Online cars shop",
+  "main": "server.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./public/lib",
+    "test",
+    "tests"
+  ]
+}
