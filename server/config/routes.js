@@ -16,6 +16,7 @@ module.exports = function(app) {
   });
 
   app.get('/api/users', controllers.auth.isAdmin, controllers.users.getAllUsers);
+  app.post('/api/users', controllers.users.signUp);
   app.get('/api/users/:id', controllers.auth.isAdmin, controllers.users.getById);
   app.delete('/api/users/:id', controllers.auth.isAdmin, controllers.users.deleteById);
 

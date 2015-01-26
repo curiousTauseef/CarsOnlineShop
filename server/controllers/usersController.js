@@ -1,4 +1,5 @@
-var User = require('mongoose').model('User');
+var User = require('mongoose').model('User'),
+  encryption = require('../utilities/encryption');
 
 module.exports = {
   deleteById: function(req, res, next) {
@@ -21,6 +22,44 @@ module.exports = {
         console.log('User could not be found by id: ' + err);
       } else {
         res.send(dbUser);
+      }
+    })
+  },
+  signUp: function(req, res, next) {
+    console.log('Registering user:' + req.body.username);
+    var username = req.body.username,
+      password = req.body.password,
+      repeatPassword = req.body.repeatPassword;
+
+    if(password !== repeatPassword || !password || password.length == 0) {
+      res.send({ success: false, error: 'Password not correct' });
+      res.end();
+      return;
+    }
+
+    User.findOne({ username: username }).exec(function(err, user) {
+      if(err) {
+        res.send({ success: false, error: err.toString() });
+        res.end();
+      } else if (!user) {
+        var newUserData = req.body;
+        newUserData.salt = encryption.generateSalt();
+        newUserData.hashPass = encryption.generateHashedPassword(newUserData.salt, newUserData.password);
+
+        User.create(newUserData, function(err, dbUser) {
+          if(err) {
+            console.log('Failed to register new user: ' + err);
+            return;
+          }
+          req.login(dbUser, function(err) {
+            if(err) {
+              res.status(400);
+              return res.send({ success: false, error: err.toString() })
+            }
+
+            res.send(dbUser);
+          })
+        })
       }
     })
   }
