@@ -8,3 +8,6 @@ html
     body(ng-app="app")
         block main-content
         include mainscripts
+        if !!currentUser
+            script.
+                window.bootstrappedUserObject = !{JSON.stringify(currentUser)}

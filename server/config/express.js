@@ -3,12 +3,12 @@ var express = require('express'),
   cookieParser = require('cookie-parser'),
   session = require('express-session'),
   passport = require('passport'),
-  morgan = require('morgan');
+  logger = require('morgan');
 
 module.exports = function(app, config) {
   app.set('view engine', 'jade');
   app.set('views', config.rootPath + '/server/views');
-  app.use(morgan('dev'));
+  app.use(logger('dev'));
   app.use(cookieParser());
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));

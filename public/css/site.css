@@ -10,3 +10,7 @@ section {
 ul.no-bullets {
     list-style-type: none
 }
+
+#footer-line {
+    width: 80%;
+}

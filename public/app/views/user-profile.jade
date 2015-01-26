@@ -1,0 +1,44 @@
+.container(ng-controller="UserProfileCtrl")
+    .row
+        .col-md-8
+            .panel.panel-primary
+                .panel-heading
+                    h3 User information
+                .panel-body
+                    table.table.table-striped.table-hover
+                        tbody
+                            tr
+                                td
+                                    strong Username:
+                                td {{ user.username }}
+                            tr
+                                td
+                                    strong Email:
+                                td {{ user.email }}
+                            tr
+                                td
+                                    strong Phone number:
+                                td {{ user.phoneNumber }}
+                            tr
+                                td
+                                    strong Published ads:
+                                td ADS HERE
+
+
+
+                    //
+                    //    .col-md-4
+                    //        strong Username:
+                    //    .col-md-4 {{ user.username }}
+                    //p
+                    //    .col-md-4
+                    //        strong Email:
+                    //    .col-md-4 {{ user.email }}
+                    //p
+                    //    .col-md-4
+                    //        strong Phone number:
+                    //    .col-md-4 {{ user.phoneNumber }}
+                    //p
+                    //    .col-md-4
+                    //        strong Published ads:
+                    //    .col-md-4 ADS HERE
