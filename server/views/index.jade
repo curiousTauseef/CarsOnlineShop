@@ -1,0 +1,18 @@
+extends includes/layout
+block main-content
+    header.nav.navbar-inverse.navbar-fixed-top
+        .container
+            .navbar-header
+                a.navbar-brand(href="#/") Cars online
+            .navbar-collapse.collapse
+                ul.nav.navbar-nav
+                    li
+                        a(href="#/") Home
+                    li
+                        a(href="#/cars") Cars
+                div(ng-include="'partials/login'")
+    section
+        div(ng-view)
+    footer
+        p.text-center
+            | &copy Vasko 2014

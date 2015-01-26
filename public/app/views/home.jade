@@ -1,0 +1,9 @@
+.container(ng-controller="HomeCtrl")
+    .col-md-6.text-center
+        h1 Hello
+    .col-md-6.text-center
+        h2 Cars bate
+        ul.no-bullets
+            li.text-left(ng-repeat="car in cars")
+                p {{ car.mark }} {{ car.engine }}
+                <hr>

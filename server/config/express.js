@@ -6,7 +6,7 @@ var express = require('express'),
   morgan = require('morgan');
 
 module.exports = function(app, config) {
-  app.set('view engine', 'html');
+  app.set('view engine', 'jade');
   app.set('views', config.rootPath + '/server/views');
   app.use(morgan('dev'));
   app.use(cookieParser());

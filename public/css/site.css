@@ -1,0 +1,12 @@
+.form-group input, a, button {
+    padding: 10px;
+    margin-left: 10px;
+}
+
+section {
+    margin-top: 80px;
+}
+
+ul.no-bullets {
+    list-style-type: none
+}
