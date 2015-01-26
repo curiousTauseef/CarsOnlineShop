@@ -1,4 +1,4 @@
-app.controller('UserProfileCtrl', function($scope, $routeParams, UsersResource, notifier) {
+app.controller('UserProfileCtrl', function($scope, $routeParams, UsersResource) {
   $scope.user = UsersResource.query({ id: $routeParams.id }, function(collection) {
     collection.forEach(function(user) {
       if(user._id === $routeParams.id) {
@@ -6,12 +6,4 @@ app.controller('UserProfileCtrl', function($scope, $routeParams, UsersResource, 
       }
     })
   });
-//  $scope.user = cachedUsers.query().$promise.then(function(collection) {
-//    console.log('In profile ctrl');
-//    collection.forEach(function(user) {
-//      if(user._id === $routeParams.id) {
-//        $scope.user = user;
-//      }
-//    })
-//  })
 });

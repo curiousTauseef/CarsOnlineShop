@@ -11,7 +11,6 @@ module.exports = function(app) {
 
 
   app.get('/partials/:partialName', function(req, res) {
-    //console.log('requested partial:  ' + req.params.partialName);
     res.render('../../public/app/views/' + req.params.partialName);
   });
 
@@ -19,6 +18,8 @@ module.exports = function(app) {
   app.post('/api/users', controllers.users.signUp);
   app.get('/api/users/:id', controllers.auth.isAdmin, controllers.users.getById);
   app.delete('/api/users/:id', controllers.auth.isAdmin, controllers.users.deleteById);
+
+  app.get('/api/brands', controllers.auth.isAuthenticated, controllers.carAds.getStaticBrands);
 
   app.post('/login', controllers.auth.login);
   app.post('/logout', controllers.auth.logout);

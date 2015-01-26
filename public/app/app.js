@@ -37,6 +37,11 @@ app.config(function($routeProvider) {
       templateUrl: '/partials/signup',
       controller: 'SignUpCtrl'
     })
+    .when('/carads/create', {
+      templateUrl: '/partials/car-ad-create',
+      controller: 'CarAdCreateCtrl',
+      resolve: routeUserChecks.authenticated
+    })
 });
 
 app.run(function($rootScope, $location) {

@@ -4,7 +4,19 @@ var User = require('mongoose').model('User'),
 module.exports = {
   deleteById: function(req, res, next) {
     console.log('delete by id: ', req.params.id);
-    res.send({ success: true });
+    if(req.user._id == req.params.id) {
+      res.send({ success: false, error: 'Lol you tried to delete yourself! Ha ha' });
+      return res.end();
+    }
+
+    User.remove({ _id: req.params.id }, function(err) {
+      if(err) {
+        res.send({ success: false, error: err.toString() });
+      } else {
+        res.send({ success: true });
+      }
+      res.end();
+    });
   },
   getAllUsers: function(req, res, next) {
     User.find({}).exec(function(err, collection) {
@@ -41,12 +53,16 @@ module.exports = {
       if(err) {
         res.send({ success: false, error: err.toString() });
         res.end();
-      } else if (!user) {
+      }
+      else if(!user) {
+        console.log('creating new user');
         var newUserData = req.body;
         newUserData.salt = encryption.generateSalt();
         newUserData.hashPass = encryption.generateHashedPassword(newUserData.salt, newUserData.password);
 
         User.create(newUserData, function(err, dbUser) {
+          console.log('ERRR: ' + err);
+          console.log('DBUSER: ' + dbUser);
           if(err) {
             console.log('Failed to register new user: ' + err);
             return;
@@ -58,8 +74,14 @@ module.exports = {
             }
 
             res.send(dbUser);
+            res.end();
           })
         })
+      }
+      else {
+        console.log('user exists');
+        res.send({ success: false, error: 'User already registered' });
+        res.end();
       }
     })
   }

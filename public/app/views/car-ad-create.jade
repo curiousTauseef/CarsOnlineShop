@@ -1,0 +1,12 @@
+.container
+    select(ng-model="selectedBrand" ng-options="b.name for b in brands" ng-change="changeBrand()")
+    select(ng-model="selectedModel" ng-options="model for model in selectedBrand.models")
+
+    //
+    //
+    //select(ng-model="selectedBrand" ng-change="abc(selectedBrand)")
+    //    option(ng-repeat="brand in brands")
+    //        p {{ brand.name }}
+    //select(ng-model="selectedModel")
+    //    option(ng-repeat="model in selectedBrand.models" )
+    //        p {{ model }}

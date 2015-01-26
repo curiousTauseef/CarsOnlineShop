@@ -1,7 +1,9 @@
 var authorizationController = require('./authorizationController'),
-  usersController = require('./usersController');
+  usersController = require('./usersController'),
+  carAdsController = require('./carAdsController');
 
 module.exports = {
   auth: authorizationController,
-  users: usersController
+  users: usersController,
+  carAds: carAdsController
 };

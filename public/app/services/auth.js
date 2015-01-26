@@ -6,9 +6,13 @@ app.factory('auth', function($http, $q, identity, UsersResource) {
         deferred.reject('Password not confirmed');
       } else {
         var user = new UsersResource(user);
-        user.$save().then(function () {
-          identity.currentUser = user;
-          deferred.resolve();
+        user.$save().then(function(response) {
+          if(response.error) {
+            deferred.reject(response.error);
+          } else {
+            identity.currentUser = user;
+            deferred.resolve();
+          }
         }, function (response) {
           deferred.reject(response);
         });
