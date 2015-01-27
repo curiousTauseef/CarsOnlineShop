@@ -1,8 +1,14 @@
 app.controller('CarAdCreateCtrl', function($scope, cachedBrandsCatalogue) {
   $scope.brands = cachedBrandsCatalogue.query();
-  console.dir($scope.brands);
-  $scope.selectedBrand = $scope.brands[0];
+  $scope.carad = {};
+  $scope.carad.selectedBrand = $scope.brands[0];
   $scope.changeBrand = function() {
-    $scope.selectedModel = $scope.selectedBrand.models[0];
+    $scope.carad.selectedModel = $scope.carad.selectedBrand.models[0];
+    console.log('change brand');
+    console.dir($scope.carad.selectedBrand);
+  };
+
+  $scope.createAd = function(carAd) {
+    console.dir(carAd);
   }
 });

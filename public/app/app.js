@@ -35,9 +35,15 @@ app.config(function($routeProvider) {
     })
     .when('/signup', {
       templateUrl: '/partials/signup',
-      controller: 'SignUpCtrl'
+      controller: 'SignUpCtrl',
+      resolve: routeUserChecks.authenticated
     })
-    .when('/carads/create', {
+    .when('/cars', {
+      templateUrl: '/partials/cars',
+      controller: 'CarsCtrl',
+      resolve: routeUserChecks.authenticated
+    })
+    .when('/cars/create', {
       templateUrl: '/partials/car-ad-create',
       controller: 'CarAdCreateCtrl',
       resolve: routeUserChecks.authenticated

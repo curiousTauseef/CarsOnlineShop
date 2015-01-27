@@ -3,7 +3,8 @@ var express = require('express'),
   cookieParser = require('cookie-parser'),
   session = require('express-session'),
   passport = require('passport'),
-  logger = require('morgan');
+  logger = require('morgan'),
+  favicon = require('serve-favicon');
 
 module.exports = function(app, config) {
   app.set('view engine', 'jade');
@@ -16,4 +17,5 @@ module.exports = function(app, config) {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(express.static(config.rootPath + '/public'));
+  app.use(favicon(config.rootPath + '/public/img/favicon.ico'));
 };
