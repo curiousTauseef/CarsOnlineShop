@@ -4,6 +4,14 @@
     .col-md-6.text-center
         h2 Cars bate
         ul.no-bullets
-            li.text-left(ng-repeat="car in cars")
-                p {{ car.mark }} {{ car.engine }}
-                hr
+            li.text-left(ng-repeat="carAd in carAds")
+                .col-lg-8
+                    .panel.panel-info
+                        .panel-body
+                            p BRAND: {{ carAd.brand }}
+                            p MODEL: {{ carAd.model }}
+                            p Fuel type: {{ carAd.fuelType }}
+                            p Gearbox: {{ carAd.gearBox }}
+                            p Fuel type: {{ carAd.fuelType }}
+                            img(src="/files/{{carAd.pictures[0]}}", width="100px")
+

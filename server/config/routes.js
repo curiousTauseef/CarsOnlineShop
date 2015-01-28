@@ -6,10 +6,6 @@ module.exports = function(app) {
     res.render('index');
   });
 
-  //app.post('/api/')
-
-
-
   app.get('/partials/:partialName', function(req, res) {
     res.render('../../public/app/views/' + req.params.partialName);
   });
@@ -20,6 +16,9 @@ module.exports = function(app) {
   app.delete('/api/users/:id', controllers.auth.isAdmin, controllers.users.deleteById);
 
   app.get('/api/brands', controllers.auth.isAuthenticated, controllers.carAds.getStaticBrands);
+  app.get('/api/models/:brandId', controllers.auth.isAuthenticated, controllers.carAds.getModelsForBrand);
+  app.post('/api/cars/create', controllers.carAds.createCarAd);
+  app.get('/api/cars/:lastN', controllers.carAds.getNewestAds);
 
   app.post('/login', controllers.auth.login);
   app.post('/logout', controllers.auth.logout);

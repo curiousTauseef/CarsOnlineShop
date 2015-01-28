@@ -18,4 +18,5 @@ module.exports = function(config) {
 
   require('../models/User').seedUsers();
   require('../models/Brand').seedInitialBrands();
+  require('../models/CarAd').seed();
 };

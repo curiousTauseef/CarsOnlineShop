@@ -2,35 +2,51 @@
     .row
         .col-lg-6
             .well.bs-component
-                form.form-horizontal(name="createAdForm")
+                form.form-horizontal(name="createAdForm", method="post", action="/api/cars/create", enctype="multipart/form-data")
                     fieldset
                         legend New
                     .form-group
                         label.col-lg-3.control-label Brand
                         .col-lg-9
-                            select.form-control.form-select(ng-model="carad.selectedBrand" ng-options="b.name for b in brands" ng-change="changeBrand()", required="required")
+                            //select.form-control.form-select(name="brand", ng-model="carad.selectedBrand" ng-options="b.name for b in brands" ng-change="changeBrand()", required="required")
+                            select.form-control.form-select(name="brand", ng-model="carad.selectedBrand", ng-change="changeBrand()", required="required")
+                                option(ng-repeat="brand in brands", value="{{ brand._id }}") {{ brand.name }}
                     .form-group
                         label.col-lg-3.control-label Model
                         .col-lg-9
-                            select.form-control.form-select(ng-model="carad.selectedModel" ng-options="model for model in carad.selectedBrand.models", required="required")
+                            //select.form-control.form-select(name="model", ng-model="carad.selectedModel" ng-options="model.name for model in models", required="required")
+                            select.form-control.form-select(name="model", ng-model="carad.selectedModel", required="required")
+                                option(ng-repeat="model in models", value="{{ model._id }}") {{ model.name }}
                     .form-group
                         label.col-lg-3.control-label Price
                         .col-lg-9
-                            input.form-control.form-validation.form-input(ng-model="carad.price", type="text", placeholder="Price", ng-pattern="/^[0-9]{1,8}$/", required="required")
+                            input.form-control.form-validation.form-input(name="price", ng-model="carad.price", type="text", placeholder="Price", ng-pattern="/^[0-9]{1,8}$/", required="required")
                     .form-group
                         label.col-lg-3.control-label Year
                         .col-lg-9
-                            input.form-control.form-validation.form-input(ng-model="carad.year", type="text", placeholder="Year", ng-pattern="/^[12][0-9]{3}$/", required="required")
+                            input.form-control.form-validation.form-input(name="year", ng-model="carad.year", type="text", placeholder="Year", ng-pattern="/^[12][0-9]{3}$/", required="required")
                     .form-group
                         label.col-lg-3.control-label Fuel type
                         .col-lg-9
-                            select.form-control.form-select(ng-model="carad.fuelType", required="required")
+                            select.form-control.form-select(name="fuelType", ng-model="carad.fuelType", required="required")
                                 option Gasoline
                                 option Diesel
                                 option Gas
                                 option Electric
                     .form-group
+                        label.col-lg-3.control-label Gearbox
+                        .col-lg-9
+                            select.form-control.form-select(name="gearBox", ng-model="carad.gearBox", required="required")
+                                option Manual
+                                option Auto
+                    .form-group
+                        label.col-mg-3.control-label Pictures
+                        .col-lg-9
+                            input(type="file", name="file_0")
+                            input(type="file", name="file_1")
+                            input(type="file", name="file_2")
+                    .form-group
                         .pull-right
-                            button.btn.btn-primary(ng-click="createAd(carad)" ng-disabled="createAdForm.$invalid") Create
+                            input.btn.btn-primary(type="submit", value="Create", ng-click="submit()")
+                            //button.btn.btn-primary(ng-click="createAd(carad)" ng-disabled="createAdForm.$invalid") Create
                             a.btn.btn-primary(href="#") Cancel
-

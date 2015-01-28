@@ -4,6 +4,7 @@ var express = require('express'),
   session = require('express-session'),
   passport = require('passport'),
   logger = require('morgan'),
+  busboy = require('connect-busboy'),
   favicon = require('serve-favicon');
 
 module.exports = function(app, config) {
@@ -13,6 +14,7 @@ module.exports = function(app, config) {
   app.use(cookieParser());
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(busboy({immediate: false}));
   app.use(session( { secret: 'change that string later', resave: true, saveUninitialized: true }));
   app.use(passport.initialize());
   app.use(passport.session());
