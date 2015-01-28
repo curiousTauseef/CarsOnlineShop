@@ -68,14 +68,14 @@ module.exports = {
   getNewestAds: function(req, res, next) {
     var getLastN = parseInt(req.params.lastN);
     CarAd.find({})
+      .populate('author')
+      .populate('brand')
+      .populate('model')
       .sort({dateCreated: -1})
       .limit(getLastN)
       .exec(function(err, collection) {
-
-        console.log('Collection: ');
-        console.dir(collection);
         if(err) {
-          res.send(500);
+          res.status(500);
           console.log('Error getting first N carads: ' + err);
         } else {
           res.send(collection);
@@ -83,5 +83,71 @@ module.exports = {
 
         res.end();
       });
+  },
+  getAllModels: function(req, res, next) {
+    Model.find({})
+      .exec(function(err, collection) {
+        if(err) {
+          res.status(500);
+          console.log('Error loading models: ' + err);
+        } else {
+          res.send(collection);
+        }
+
+        res.end();
+      })
+  },
+  searchByOptions: function(req, res, next) {
+    var query = getCarAdsByOptions(req.body.options);
+    query
+      .populate('model')
+      .populate('brand')
+      .populate('author')
+
+    query.exec(function(err, cars) {
+      if(err) {
+        res.status(500);
+        console.log('Error querying carads: ' + err);
+      } else {
+        //console.log(cars);
+        res.send({cars: cars});
+      }
+      res.end();
+    });
+  },
+  search: function(req, res, next) {
+    console.log('REQ BODY:');
+    console.dir(req.body);
+    res.end();
   }
 };
+
+function getCarAdsByOptions(options) {
+  var query = CarAd.find({});
+  if(!!options.selectedBrand) {
+    query.where({ brand: options.selectedBrand });
+  }
+  if(!!options.selectedModel) {
+    query.where({ model: options.selectedModel });
+  }
+  if(!!options.fuelType) {
+    query.where({ fuelType: options.fuelType });
+  }
+  if(!!options.gearBox) {
+    query.where({ gearBox: options.gearBox });
+  }
+  if(!!options.priceFrom) {
+    query.where('price').gte(parseInt(options.priceFrom));
+  }
+  if(!!options.priceTo) {
+    query.where('price').lte(parseInt(options.priceTo));
+  }
+  if(!!options.yearFrom) {
+    query.where('year').gte(parseInt(options.yearFrom));
+  }
+  if(!!options.yearTo) {
+    query.where('year').lte(parseInt(options.yearTo));
+  }
+
+  return query;
+}

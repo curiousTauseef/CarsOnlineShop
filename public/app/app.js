@@ -47,6 +47,11 @@ app.config(function($routeProvider) {
       controller: 'CarAdCreateCtrl',
       resolve: routeUserChecks.authenticated
     })
+    .when('/cars/search', {
+      templateUrl: '/partials/search',
+      controller: 'CarsSearchController',
+      resolve:routeUserChecks.authenticated
+    })
 });
 
 app.run(function($rootScope, $location) {

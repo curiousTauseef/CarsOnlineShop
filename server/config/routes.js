@@ -15,10 +15,13 @@ module.exports = function(app) {
   app.get('/api/users/:id', controllers.auth.isAdmin, controllers.users.getById);
   app.delete('/api/users/:id', controllers.auth.isAdmin, controllers.users.deleteById);
 
-  app.get('/api/brands', controllers.auth.isAuthenticated, controllers.carAds.getStaticBrands);
+  app.get('/api/brands', controllers.carAds.getStaticBrands);
   app.get('/api/models/:brandId', controllers.auth.isAuthenticated, controllers.carAds.getModelsForBrand);
+  app.get('/api/models/', controllers.carAds.getAllModels);
   app.post('/api/cars/create', controllers.carAds.createCarAd);
   app.get('/api/cars/:lastN', controllers.carAds.getNewestAds);
+  app.post('/api/searchCars/', controllers.auth.isAuthenticated, controllers.carAds.searchByOptions);
+  app.get('/api/searchCars/', controllers.auth.isAuthenticated, controllers.carAds.search);
 
   app.post('/login', controllers.auth.login);
   app.post('/logout', controllers.auth.logout);

@@ -8,6 +8,7 @@ var carAdSchema = mongoose.Schema({
   year: { type: Number, required: '{PATH} is required' },
   gearBox: { type: String, required: '{PATH} is required' },
   fuelType: { type: String, required: '{PATH} is required' },
+  additionalComment: String,
   dateCreated: {type: Date, default: new Date(), required: '{PATH} is required' },
   pictures: [String]
 });

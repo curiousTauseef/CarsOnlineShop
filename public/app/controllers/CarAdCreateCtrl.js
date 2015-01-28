@@ -9,17 +9,8 @@ app.controller('CarAdCreateCtrl', function($scope, $location, cachedBrandsCatalo
   };
 
   $scope.submit = function() {
-    $location.path('/#/cars')
+    $location.path('/#/')
   };
-
-//  $scope.uploadFile = function(files) {
-//    var fd = new FormData()
-//    fd.append('file', files[0]);
-//
-//    $http.post(uploadUrl, fd, {
-//
-//    })
-//  };
 
   $scope.createAd = function(carAd) {
     console.dir(carAd);

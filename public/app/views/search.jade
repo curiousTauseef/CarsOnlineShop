@@ -1,0 +1,74 @@
+.container(ng-controller="CarsSearchController")
+    .row
+        .col-lg-6
+            .well.bs-component
+                form.form-horizontal(name="searchCarsForm")
+                    fieldset
+                        legend New
+                    .form-group
+                        label.col-lg-3.control-label Brand
+                        .col-lg-9
+                            select.form-control.form-select(ng-model="options.selectedBrand", ng-change="changeBrand()", required="required")
+                                option(value="")
+                                option(ng-repeat="brand in brands", value="{{ brand._id }}") {{ brand.name }}
+                    .form-group
+                        label.col-lg-3.control-label Model
+                        .col-lg-9
+                            select.form-control.form-select(ng-model="options.selectedModel", required="required")
+                                option(ng-repeat="model in models", value="{{ model._id }}") {{ model.name }}
+                    .form-group
+                        label.col-lg-3.control-label Price from:
+                        .col-lg-3
+                            input.form-control(ng-model="options.priceFrom", type="text")
+                        label.col-lg-3.control-label Price to:
+                        .col-lg-3
+                            input.form-control(ng-model="options.priceTo", type="text")
+                    .form-group
+                        label.col-lg-3.control-label Year from:
+                        .col-lg-3
+                            input.form-control(ng-model="options.yearFrom", type="text")
+                        label.col-lg-3.control-label Year to:
+                        .col-lg-3
+                            input.form-control(ng-model="options.yearTo", type="text")
+                    .form-group
+                        label.col-lg-3.control-label Fuel type
+                        .col-lg-9
+                            select.form-control.form-select(ng-model="options.fuelType")
+                                option(value="")
+                                option Gasoline
+                                option Diesel
+                                option Gas
+                                option Electric
+                    .form-group
+                        label.col-lg-3.control-label Gearbox
+                        .col-lg-9
+                            select.form-control.form-select(ng-model="options.gearBox")
+                                option(value="", selected="selected")
+                                option Manual
+                                option Auto
+                    .form-group
+                        .pull-left
+                            input.btn.btn-primary(value="Search", ng-disabled="createAdForm.$invalid", ng-click="search(options)")
+                            a.btn.btn-primary(href="#") Cancel
+        .col-lg-6
+            h3 Results:
+                table.table-striped.table-standard
+                    tr
+                        th Brand
+                        th Model
+                        th Fuel type
+                        th Gearbox
+                        th Price
+                        th Year
+                        th Picture
+                        th Additional comment
+                    tr(ng-repeat="car in cars")
+                        td {{ car.brand.name }}
+                        td {{ car.model.name }}
+                        td {{ car.fuelType }}
+                        td {{ car.gearBox }}
+                        td {{ car.price | currency}}
+                        td {{ car.year }}
+                        td
+                            img(src="/files/{{car.pictures[0]}}", width="100px")
+                        td(colspan=3) {{ car.additionalComment | limitTo: 50 }}
