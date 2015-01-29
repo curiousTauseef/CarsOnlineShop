@@ -45,12 +45,24 @@
                             textarea.form-control(name="additionalComment")
                     .form-group
                         label.col-mg-3.control-label Pictures
-                        .col-lg-9
+                        button.btn.btn-default(id="add-more-pics", type="button") Add more pictures
+                        .col-lg-9(id="pictures-input")
                             input(type="file", name="file_0", required="required")
-                            input(type="file", name="file_1")
-                            input(type="file", name="file_2")
+                            //input(type="file", name="file_1")
+                            //input(type="file", name="file_2")
                     .form-group
                         .pull-right
                             input.btn.btn-primary(type="submit", value="Create", ng-disabled="createAdForm.$invalid", ng-click="submit()")
                             //button.btn.btn-primary(ng-click="createAd(carad)" ng-disabled="createAdForm.$invalid") Create
                             a.btn.btn-primary(href="#") Cancel
+
+script(type="text/javascript").
+  function addPicture(){
+    var container = $('#pictures-input');
+    var count = container.children('input[type="file"]').length;
+    var input = $('<input/>');
+    input.attr('type', 'file');
+    input.attr('name', 'file_' + count);
+    container.prepend(input);
+  }
+  $('#add-more-pics').on('click', addPicture);

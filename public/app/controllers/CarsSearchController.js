@@ -4,6 +4,8 @@ app.controller('CarsSearchController', function($scope, $location, cachedBrandsC
   $scope.sortBy = 'year';
   $scope.sortPrefix = '';
   var sortAsc = true;
+  $scope.searchCalled = false;
+  $scope.carSelected = false;
 
   $scope.changeBrand = function() {
     if($scope.options.selectedBrand) {
@@ -15,7 +17,7 @@ app.controller('CarsSearchController', function($scope, $location, cachedBrandsC
   };
 
   $scope.search = function(options) {
-    console.dir(options);
+    $scope.searchCalled = true;
     CarAdsService.searchByOptions(options)
       .then(function(response) {
         $scope.cars = response.cars;
@@ -38,5 +40,11 @@ app.controller('CarsSearchController', function($scope, $location, cachedBrandsC
       $scope.sortPrefix = '';
       sortAsc = true;
     }
+  };
+
+  $scope.selectCar = function(car) {
+    console.log('SELECT CAR');
+    $scope.carOnFocus = car;
+    $scope.carSelected = true;
   }
 });

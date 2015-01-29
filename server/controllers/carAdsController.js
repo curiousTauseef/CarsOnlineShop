@@ -59,7 +59,6 @@ module.exports = {
 
     req.busboy.on('field', function(fieldName, val) {
       carAd[fieldName] = val;
-      console.log(fieldName + ' : ' + carAd[fieldName])
     });
 
     //res.redirect('/');
@@ -102,7 +101,7 @@ module.exports = {
     query
       .populate('model')
       .populate('brand')
-      .populate('author')
+      .populate('author');
 
     query.exec(function(err, cars) {
       if(err) {

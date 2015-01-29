@@ -1,23 +1,23 @@
 .container(ng-controller="HomeCtrl", ng-cloak)
     .col-md-10.text-center
         h2 Newest cars
-            table.table-striped.table-standard
-                tr
-                    th Brand
-                    th Model
-                    th Fuel type
-                    th Gearbox
-                    th Price
-                    th Year
-                    th Picture
-                    th Additional comment
-                tr(ng-repeat="carAd in carAds")
-                    td {{ carAd.brand.name }}
-                    td {{ carAd.model.name }}
-                    td {{ carAd.fuelType }}
-                    td {{ carAd.gearBox }}
-                    td {{ carAd.price | currency}}
-                    td {{ carAd.year }}
-                    td
-                        img(src="/files/{{carAd.pictures[0]}}", width="100px")
-                    td(colspan=3) {{ carAd.additionalComment | limitTo: 50 }}
+        table.table-striped.table-standard
+            tr
+                th Brand
+                th Model
+                th Fuel type
+                th Gearbox
+                th Price
+                th Year
+                th Picture
+                th Additional comment
+            tr(ng-repeat="carAd in carAds")
+                td {{ carAd.brand.name }}
+                td {{ carAd.model.name }}
+                td {{ carAd.fuelType }}
+                td {{ carAd.gearBox }}
+                td {{ carAd.price | currency}}
+                td {{ carAd.year }}
+                td
+                    img(src="/files/{{carAd.pictures[0]}}", width="100px")
+                td(colspan=3) {{ carAd.additionalComment | limitTo: 50 }}

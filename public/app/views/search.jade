@@ -1,6 +1,6 @@
 .container(ng-controller="CarsSearchController")
     .row
-        .col-lg-6
+        .col-lg-5
             .well.bs-component
                 form.form-horizontal(name="searchCarsForm")
                     fieldset
@@ -50,31 +50,69 @@
                         .pull-left
                             input.btn.btn-primary(value="Search", ng-disabled="createAdForm.$invalid", ng-click="search(options)")
                             a.btn.btn-primary(href="#") Cancel
-        .col-lg-6
-            h3 Results:
-                table.table-striped.table-standard
-                    tr
-                        th
-                            div(ng-click="changeSort('brand.name')") Brand
-                        th
-                            div(ng-click="changeSort('model.name')") Model
-                        th
-                            div(ng-click="changeSort('fuelType')") Fuel type
-                        th
-                            div(ng-click="changeSort('gearBox')") Gearbox
-                        th
-                            div(ng-click="changeSort('price')") Price
-                        th
-                            div(ng-click="changeSort('year')") Year
-                        th Picture
-                        th Additional comment
-                    tr(ng-repeat="car in cars | orderBy: sortPrefix + sortBy")
-                        td {{ car.brand.name }}
-                        td {{ car.model.name }}
-                        td {{ car.fuelType }}
-                        td {{ car.gearBox }}
-                        td {{ car.price | currency}}
-                        td {{ car.year }}
-                        td
-                            img(src="/files/{{car.pictures[0]}}", width="100px")
-                        td(colspan=3) {{ car.additionalComment | limitTo: 50 }}
+            .well.bs-component(ng-show="carSelected")
+                .panel.panel-info
+                    .panel-heading
+                        h4 Information
+                    .panel-body
+                        div
+                            label.col-lg-4.control-label Brand:
+                            .form-control {{ carOnFocus.brand.name }}
+                        div
+                            label.col-lg-4.control-label Model:
+                            .form-control {{ carOnFocus.model.name }}
+                        div
+                            label.col-lg-4.control-label Fuel type:
+                            .form-control {{ carOnFocus.fuelType }}
+                        div
+                            label.col-lg-4.control-label Gearbox:
+                            .form-control {{ carOnFocus.gearBox }}
+                        div
+                            label.col-lg-4.control-label Email:
+                            .form-control {{ carOnFocus.author.email }}
+                        div
+                            label.col-lg-4.control-label Price:
+                            .form-control {{ carOnFocus.price | currency }}
+                        div
+                            label.col-lg-4.control-label Year:
+                            .form-control {{ carOnFocus.year }}
+                        div
+                            label.col-lg-4.control-label Phone number:
+                            .form-control {{ carOnFocus.author.phoneNumber }}
+                        ul.list-group
+                            li.list-group-item(ng-repeat="picture in carOnFocus.pictures")
+                                img(src="/files/{{picture}}", width="200px")
+        .col-lg-7(ng-show="searchCalled")
+            h3.page-header Results:
+            table.table-striped.table-standard
+                tr
+                    th
+                        div(ng-click="changeSort('brand.name')") Brand
+                            span.caret
+                    th
+                        div(ng-click="changeSort('model.name')") Model
+                            span.caret
+                    th
+                        div(ng-click="changeSort('fuelType')") Fuel type
+                            span.caret
+                    th
+                        div(ng-click="changeSort('gearBox')") Gearbox
+                            span.caret
+                    th
+                        div(ng-click="changeSort('price')") Price
+                            span.caret
+                    th
+                        div(ng-click="changeSort('year')") Year
+                            span.caret
+                    th Picture
+                    th Additional comment
+                tr(ng-repeat="car in cars | orderBy: sortPrefix + sortBy")
+                    td {{ car.brand.name }}
+                    td {{ car.model.name }}
+                    td {{ car.fuelType }}
+                    td {{ car.gearBox }}
+                    td {{ car.price | currency}}
+                    td {{ car.year }}
+                    td
+                        img(src="/files/{{car.pictures[0]}}", width="100px", ng-click="selectCar(car)")
+                    td(colspan=3) {{ car.additionalComment | limitTo: 50 }}
