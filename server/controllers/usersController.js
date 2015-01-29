@@ -58,7 +58,7 @@ module.exports = {
         console.log('creating new user');
         var newUserData = req.body;
         newUserData.salt = encryption.generateSalt();
-        newUserData.hashPass = encryption.generateHashedPassword(newUserData.salt, newUserData.password);
+        newUserData.hashedPass = encryption.generateHashedPassword(newUserData.salt, newUserData.password);
 
         User.create(newUserData, function(err, dbUser) {
           console.log('ERRR: ' + err);

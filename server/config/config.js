@@ -12,7 +12,7 @@ configs = {
   },
   production: {
     rootPath: rootPath,
-    db: 'mongodb://localhost:27017/carsonlineshop', //TODO: Change it if deploy on cloud!!!
+    db: 'mongodb://bateadmin:mongolabadmin@ds053698.mongolab.com:53698/carsonlineshop',
     port: process.env.PORT || 3000,
     env: env
   }

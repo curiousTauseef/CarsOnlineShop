@@ -118,6 +118,18 @@ module.exports = {
     console.log('REQ BODY:');
     console.dir(req.body);
     res.end();
+  },
+  deleteCar: function(req, res, next) {
+    CarAd.remove({ _id: req.params.id }, function(err, success) {
+      if(err) {
+        res.send({ success: false, error: err.toString() });
+      } else {
+        res.send({ success: true });
+        console.log('deleted car: ' + success);
+      }
+
+      res.end();
+    })
   }
 };
 

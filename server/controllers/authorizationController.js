@@ -5,9 +5,12 @@ module.exports = {
     console.dir(req.body);
     var auth = passport.authenticate('local', function(err, user) {
       if(err) {
+        console.log('Error passport authenticate: ' + err);
         return next(err);
       }
       if(!user) {
+        console.log('Error no user: ' + err);
+        console.log(user);
         res.send({ success: false });
       } else {
         req.login(user, function(err) {

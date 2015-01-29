@@ -56,28 +56,31 @@
                         h4 Information
                     .panel-body
                         div
-                            label.col-lg-4.control-label Brand:
+                            label.col-lg-5.control-label Brand:
                             .form-control {{ carOnFocus.brand.name }}
                         div
-                            label.col-lg-4.control-label Model:
+                            label.col-lg-5.control-label Model:
                             .form-control {{ carOnFocus.model.name }}
                         div
-                            label.col-lg-4.control-label Fuel type:
+                            label.col-lg-5.control-label Fuel type:
                             .form-control {{ carOnFocus.fuelType }}
                         div
-                            label.col-lg-4.control-label Gearbox:
+                            label.col-lg-5.control-label Gearbox:
                             .form-control {{ carOnFocus.gearBox }}
                         div
-                            label.col-lg-4.control-label Email:
-                            .form-control {{ carOnFocus.author.email }}
-                        div
-                            label.col-lg-4.control-label Price:
+                            label.col-lg-5.control-label Price:
                             .form-control {{ carOnFocus.price | currency }}
                         div
-                            label.col-lg-4.control-label Year:
+                            label.col-lg-5.control-label Year:
                             .form-control {{ carOnFocus.year }}
                         div
-                            label.col-lg-4.control-label Phone number:
+                            label.col-lg-5.control-label Description:
+                            textarea.form-control {{ carOnFocus.additionalComment }}
+                        div
+                            label.col-lg-5.control-label Email:
+                            .form-control {{ carOnFocus.author.email }}
+                        div
+                            label.col-lg-5.control-label Phone number:
                             .form-control {{ carOnFocus.author.phoneNumber }}
                         ul.list-group
                             li.list-group-item(ng-repeat="picture in carOnFocus.pictures")
@@ -116,3 +119,6 @@
                     td
                         img(src="/files/{{car.pictures[0]}}", width="100px", ng-click="selectCar(car)")
                     td(colspan=3) {{ car.additionalComment | limitTo: 50 }}
+                    td(ng-show="identity.isAdmin()")
+                        button.btn.btn-danger.btn-sm(ng-click="deleteCar(car)") Delete
+

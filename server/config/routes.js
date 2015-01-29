@@ -20,6 +20,8 @@ module.exports = function(app) {
   app.get('/api/models/', controllers.carAds.getAllModels);
   app.post('/api/cars/create', controllers.carAds.createCarAd);
   app.get('/api/cars/:lastN', controllers.carAds.getNewestAds);
+  app.delete('/api/cars/:id', controllers.auth.isAdmin, controllers.carAds.deleteCar);
+
   app.post('/api/searchCars/', controllers.auth.isAuthenticated, controllers.carAds.searchByOptions);
   app.get('/api/searchCars/', controllers.auth.isAuthenticated, controllers.carAds.search);
 

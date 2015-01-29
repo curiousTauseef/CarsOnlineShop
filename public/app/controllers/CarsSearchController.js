@@ -1,4 +1,5 @@
-app.controller('CarsSearchController', function($scope, $location, cachedBrandsCatalogue, ModelsResource, CarAdsService) {
+app.controller('CarsSearchController', function($scope, $location, cachedBrandsCatalogue, ModelsResource, CarAdsService, notifier, identity) {
+  $scope.identity = identity;
   $scope.brands = cachedBrandsCatalogue.query();
   $scope.options = {};
   $scope.sortBy = 'year';
@@ -46,5 +47,22 @@ app.controller('CarsSearchController', function($scope, $location, cachedBrandsC
     console.log('SELECT CAR');
     $scope.carOnFocus = car;
     $scope.carSelected = true;
+  };
+
+  $scope.deleteCar = function(car) {
+    CarAdsService.deleteCar(car)
+      .then(function(response) {
+        if(response.success) {
+          notifier.success('Car deleted!');
+          $scope.cars = $scope.cars.filter(function(c) {
+            return c._id != car._id;
+          })
+        } else {
+          notifier.error('Failed deleting the car');
+        }
+      }, function(err) {
+        notifier.error(err.toString());
+        console.log('Error deleting carad: ' + err);
+      })
   }
 });
