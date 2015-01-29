@@ -120,16 +120,26 @@ module.exports = {
     res.end();
   },
   deleteCar: function(req, res, next) {
-    CarAd.remove({ _id: req.params.id }, function(err, success) {
+    CarAd.findOne({ _id: req.params.id }).exec(function(err, car) {
       if(err) {
         res.send({ success: false, error: err.toString() });
       } else {
-        res.send({ success: true });
-        console.log('deleted car: ' + success);
+        for(var i = 0; i < car.pictures.length; i+=1) {
+          fileManager.deleteFile(car.pictures[i]);
+        }
       }
 
-      res.end();
-    })
+      CarAd.remove({ _id: req.params.id }, function(err, success) {
+        if(err) {
+          res.send({ success: false, error: err.toString() });
+        } else {
+          res.send({ success: true });
+          console.log('deleted car: ' + success);
+        }
+
+        res.end();
+      })
+    });
   }
 };
 

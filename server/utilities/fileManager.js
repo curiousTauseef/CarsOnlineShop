@@ -14,5 +14,9 @@ module.exports = {
 
     var fsStream = fs.createWriteStream(pathLib.normalize(FILES_DIR + path + fileName));
     file.pipe(fsStream);
+  },
+  deleteFile: function(fileName) {
+    var filename = pathLib.join(FILES_DIR, fileName);
+    fs.unlinkSync(filename);
   }
 };
